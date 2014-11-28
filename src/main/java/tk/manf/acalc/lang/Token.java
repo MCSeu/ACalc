@@ -1,7 +1,7 @@
 package tk.manf.acalc.lang;
 
 import tk.manf.acalc.lang.math.Operator;
-import tk.manf.acalc.lang.util.Operators;
+import tk.manf.acalc.api.operators.Operators;
 
 public final class Token {
     private final TokenType type;
@@ -25,10 +25,6 @@ public final class Token {
     
     public double asDouble() {
         return Double.parseDouble(getExpression());
-    }
-    
-    public Operator asOperator() {
-        return Operators.resolve(expr);
     }
     
     @Override

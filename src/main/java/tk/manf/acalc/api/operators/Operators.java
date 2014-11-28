@@ -1,10 +1,11 @@
-package tk.manf.acalc.lang.util;
+package tk.manf.acalc.api.operators;
 
 import tk.manf.acalc.lang.math.Operator;
 import tk.manf.acalc.api.operators.AdditionOperator;
 import tk.manf.acalc.api.operators.DivisionOperator;
 import tk.manf.acalc.api.operators.MultiplicationOperator;
 import tk.manf.acalc.api.operators.SubtractionOperator;
+import tk.manf.acalc.lang.Token;
 import tk.manf.util.AbstractFactory;
 
 public final class Operators extends AbstractFactory<String, Operator> {
@@ -19,6 +20,10 @@ public final class Operators extends AbstractFactory<String, Operator> {
 
     public static UnsafeFactory<String, Operator> modify() {
         return instance.unsafe();
+    }
+    
+    public static Operator resolve(Token t) {
+        return resolve(t.getExpression());
     }
     
     public static Operator resolve(String op) {

@@ -1,7 +1,7 @@
 package tk.manf.acalc.api.operators;
 
-public class SubtractionOperator extends AbstractOperator {
-    public SubtractionOperator() {
+class SubtractionOperator extends AbstractOperator {
+    SubtractionOperator() {
         super("-");
     }
 

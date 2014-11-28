@@ -1,7 +1,7 @@
 package tk.manf.acalc.api.operators;
 
-public class MultiplicationOperator extends AbstractOperator {
-    public MultiplicationOperator() {
+class MultiplicationOperator extends AbstractOperator {
+    MultiplicationOperator() {
         super("*");
     }
 

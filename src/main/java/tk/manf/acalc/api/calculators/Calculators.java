@@ -1,11 +1,10 @@
-package tk.manf.acalc.lang.util;
+package tk.manf.acalc.api.calculators;
 
 import tk.manf.acalc.api.Calculator;
-import tk.manf.acalc.api.calculators.PostfixCalculator;
 import tk.manf.acalc.lang.ExpressionType;
 import tk.manf.util.AbstractFactory;
 
-public class Calculators extends AbstractFactory<ExpressionType, Calculator> {
+public final class Calculators extends AbstractFactory<ExpressionType, Calculator> {
     private Calculators() {
         super("Calculator");
         unsafe().register(new PostfixCalculator());

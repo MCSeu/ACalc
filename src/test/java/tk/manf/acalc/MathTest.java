@@ -4,13 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
-import tk.manf.acalc.api.calculators.PostfixCalculator;
 import tk.manf.acalc.lang.Expression;
 import tk.manf.acalc.lang.ExpressionType;
 
 import static org.junit.Assert.*;
 import tk.manf.acalc.api.Calculator;
-import tk.manf.acalc.lang.util.Calculators;
+import tk.manf.acalc.api.calculators.Calculators;
 /**
  * Test to test basic expressions
  *

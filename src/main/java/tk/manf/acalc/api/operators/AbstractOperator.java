@@ -2,7 +2,7 @@ package tk.manf.acalc.api.operators;
 
 import tk.manf.acalc.lang.math.Operator;
 
-public abstract class AbstractOperator implements Operator {
+abstract class AbstractOperator implements Operator {
     private final String ident;
 
     protected AbstractOperator(String ident) {

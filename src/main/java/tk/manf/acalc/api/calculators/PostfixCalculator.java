@@ -1,11 +1,12 @@
 package tk.manf.acalc.api.calculators;
 
+import tk.manf.acalc.api.operators.Operators;
 import tk.manf.acalc.lang.Token;
 import tk.manf.acalc.lang.Expression;
 import tk.manf.acalc.lang.ExpressionType;
 import tk.manf.util.collection.Stack;
 
-public class PostfixCalculator extends AbstractCalculator {
+class PostfixCalculator extends AbstractCalculator {
     @Override
     public ExpressionType getIdent() {
         return ExpressionType.POSTFIX;
@@ -24,7 +25,7 @@ public class PostfixCalculator extends AbstractCalculator {
                     //TODO: Let Operator choose amount
                     double b = stack.remove();
                     double a = stack.remove();
-                    stack.add(t.asOperator().mix(a, b));
+                    stack.add(Operators.resolve(t).mix(a, b));
                     break;
                 case COMMENT:
                     // Ignore Comments

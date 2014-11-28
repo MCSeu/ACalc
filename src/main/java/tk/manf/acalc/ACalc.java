@@ -1,9 +1,11 @@
 package tk.manf.acalc;
 
-import tk.manf.acalc.api.calculators.PostfixCalculator;
 import tk.manf.acalc.lang.Token;
 import tk.manf.acalc.lang.TokenType;
 import java.util.NoSuchElementException;
+import tk.manf.acalc.api.Calculator;
+import tk.manf.acalc.api.calculators.Calculators;
+import tk.manf.acalc.api.operators.Operators;
 import tk.manf.acalc.lang.Expression;
 import tk.manf.acalc.lang.math.Operator;
 import tk.manf.acalc.lang.ExpressionType;
@@ -23,9 +25,11 @@ public class ACalc {
         final String expr = "(5+5) * 4 + 4";
         
         final String rpn = new ACalc().parse(expr);
+        final Calculator calc = Calculators.resolve(ExpressionType.POSTFIX);
+        
         System.out.println("Parsing: " + expr);
         System.out.println("Parsed: '" + rpn + "'");
-        System.out.println("Solved: '" + new PostfixCalculator().calc(new Expression(ExpressionType.POSTFIX, rpn)) + "'");
+        System.out.println("Solved: '" + calc.calc(new Expression(ExpressionType.POSTFIX, rpn)) + "'");
         
         System.out.println("Reading " + expr);
         final Expression expression = new Expression(ExpressionType.INTFIX, expr);
@@ -94,8 +98,8 @@ public class ACalc {
     private void handleOperator(Token a) {
         final Token b = stack.top();
         if (b != null && b.getType() == TokenType.OPERATOR) {
-            final Operator o1 = a.asOperator();
-            final Operator o2 = b.asOperator();
+            final Operator o1 = Operators.resolve(a);
+            final Operator o2 = Operators.resolve(b);
             // O1 is left asscociative => B
             // O1 < O2 => C
             // 01 = O3 => A
@@ -122,4 +126,4 @@ public class ACalc {
     private void append(Token t) {
         output.append(t.getExpression()).append(" ");
     }
-} 
+}

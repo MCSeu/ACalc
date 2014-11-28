@@ -1,7 +1,7 @@
 package tk.manf.acalc.api.operators;
 
-public class DivisionOperator extends AbstractOperator {
-    public DivisionOperator() {
+class DivisionOperator extends AbstractOperator {
+    DivisionOperator() {
         super(":");
     }
 
