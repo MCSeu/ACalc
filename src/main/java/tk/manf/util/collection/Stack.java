@@ -1,16 +1,15 @@
-package tk.manf.acalc.collection;
+package tk.manf.util.collection;
 
 import java.util.Deque;
 import java.util.Iterator;
 import java.util.LinkedList;
-import tk.manf.acalc.api.Token;
 
 /**
  * LiFo implementation using a LinkedList
  * @author Björn 'manf' Heinrichs
  */
-public class Stack implements Iterable<Token> {
-    private final Deque<Token> data;
+public class Stack<V> implements Iterable<V> {
+    private final Deque<V> data;
 
     public Stack() {
         this.data = new LinkedList<>();
@@ -23,7 +22,7 @@ public class Stack implements Iterable<Token> {
      * @return the tail of this deque
      * @throws java.util.NoSuchElementException if this stack is empty
      */
-    public Token remove() {
+    public V remove() {
         return data.removeLast();
     }
     
@@ -33,11 +32,15 @@ public class Stack implements Iterable<Token> {
      *
      * @return the last inserted element or {@code null} if this stack is empty
      */
-    public Token top() {
+    public V top() {
         return data.peekLast();
     }
     
-    public void add(Token t) {
+    public int size() {
+        return data.size();
+    }
+    
+    public void add(V t) {
         data.add(t);
     }
     
@@ -46,7 +49,7 @@ public class Stack implements Iterable<Token> {
     }
 
     @Override
-    public Iterator<Token> iterator() {
+    public Iterator<V> iterator() {
         return data.iterator();
     }
 }

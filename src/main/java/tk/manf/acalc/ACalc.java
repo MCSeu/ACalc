@@ -1,20 +1,22 @@
 package tk.manf.acalc;
 
-import tk.manf.acalc.api.Token;
-import tk.manf.acalc.api.TokenType;
+import tk.manf.acalc.api.calculators.PostfixCalculator;
+import tk.manf.acalc.lang.Token;
+import tk.manf.acalc.lang.TokenType;
 import java.util.NoSuchElementException;
-import tk.manf.acalc.api.Expression;
-import tk.manf.acalc.api.Operator;
-import tk.manf.acalc.api.readers.TokenReader;
-import tk.manf.acalc.collection.Stack;
+import tk.manf.acalc.lang.Expression;
+import tk.manf.acalc.lang.math.Operator;
+import tk.manf.acalc.lang.ExpressionType;
+import tk.manf.acalc.lang.readers.TokenReader;
+import tk.manf.util.collection.Stack;
 
 public class ACalc {
     private final StringBuilder output;
-    private final Stack stack;
+    private final Stack<Token> stack;
     
     public ACalc() {
         this.output = new StringBuilder();
-        this.stack = new Stack();
+        this.stack = new Stack<>();
     }
 
     public static void main(String[] args) {
@@ -23,17 +25,17 @@ public class ACalc {
         final String rpn = new ACalc().parse(expr);
         System.out.println("Parsing: " + expr);
         System.out.println("Parsed: '" + rpn + "'");
-        System.out.println("Solved: '" + RPNCalculator.solve(rpn) + "'");
+        System.out.println("Solved: '" + new PostfixCalculator().calc(new Expression(ExpressionType.POSTFIX, rpn)) + "'");
         
         System.out.println("Reading " + expr);
-        final Expression expression = new Expression(expr);
+        final Expression expression = new Expression(ExpressionType.INTFIX, expr);
         for(Token token: expression) {
             if(token.getType() == TokenType.COMMENT) {
                 continue; 
             }
             System.out.print(token.getExpression() + " ");
         }
-        System.out.println("\n");
+        System.out.println();
     }
 
     public String parse(String expr) {
@@ -120,4 +122,4 @@ public class ACalc {
     private void append(Token t) {
         output.append(t.getExpression()).append(" ");
     }
-}
+} 

@@ -3,9 +3,14 @@ package tk.manf.acalc;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.Before;
-import static org.junit.Assert.*;
 import org.junit.Test;
+import tk.manf.acalc.api.calculators.PostfixCalculator;
+import tk.manf.acalc.lang.Expression;
+import tk.manf.acalc.lang.ExpressionType;
 
+import static org.junit.Assert.*;
+import tk.manf.acalc.api.Calculator;
+import tk.manf.acalc.lang.util.Calculators;
 /**
  * Test to test basic expressions
  *
@@ -57,11 +62,14 @@ public class MathTest {
     public void test() {
         final ACalc prepocessor = new ACalc();
         for (Map.Entry<String, Double> e : expressions.entrySet()) {
-            final String expression = prepocessor.parse(e.getKey());
-            assertEquals(e.getValue(), RPNCalculator.solve(expression), 0.0);
+            final Expression expression = new Expression(ExpressionType.POSTFIX, prepocessor.parse(e.getKey()));
+            
+            // Resolve Calculator based on the expression and it's type
+            final Calculator calc = Calculators.resolve(expression.getType());
+            assertEquals(e.getValue(), calc.calc(expression), 0.0);
         }
     }
-
+    
     private void assertCalculation(String expression, double result) {
         expressions.put(expression, result);
     }

@@ -1,8 +1,8 @@
-package tk.manf.acalc.api.readers;
+package tk.manf.acalc.lang.readers;
 
 import java.util.Iterator;
-import tk.manf.acalc.api.Token;
-import tk.manf.acalc.api.TokenType;
+import tk.manf.acalc.lang.Token;
+import tk.manf.acalc.lang.TokenType;
 
 public class TokenReader implements Iterator<Token> {
     private final String expression;

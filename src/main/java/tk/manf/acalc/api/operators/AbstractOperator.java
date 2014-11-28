@@ -1,6 +1,6 @@
 package tk.manf.acalc.api.operators;
 
-import tk.manf.acalc.api.Operator;
+import tk.manf.acalc.lang.math.Operator;
 
 public abstract class AbstractOperator implements Operator {
     private final String ident;

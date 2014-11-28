@@ -1,4 +1,4 @@
-package tk.manf.acalc.api;
+package tk.manf.acalc.lang;
 
 public enum TokenType {
     NUMBER,

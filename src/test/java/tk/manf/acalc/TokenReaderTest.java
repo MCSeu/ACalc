@@ -5,7 +5,7 @@ import java.util.Map;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-import tk.manf.acalc.api.readers.TokenReader;
+import tk.manf.acalc.lang.readers.TokenReader;
 
 /**
  * Test to test TokenReader

@@ -1,8 +1,9 @@
-package tk.manf.acalc.api;
+package tk.manf.acalc.lang;
 
-import tk.manf.acalc.util.Operators;
+import tk.manf.acalc.lang.math.Operator;
+import tk.manf.acalc.lang.util.Operators;
 
-public class Token {
+public final class Token {
     private final TokenType type;
     private final String expr;
 
@@ -27,7 +28,7 @@ public class Token {
     }
     
     public Operator asOperator() {
-        return Operators.get(expr);
+        return Operators.resolve(expr);
     }
     
     @Override
