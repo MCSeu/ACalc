@@ -11,7 +11,7 @@ public final class Operators extends AbstractFactory<String, Operator> {
     private Operators() {
         super("Operator");
         // Basic Math
-        modify().register(new AdditionOperator())
+        unsafe().register(new AdditionOperator())
                 .register(new SubtractionOperator())
                 .register(new MultiplicationOperator())
                 .register(new DivisionOperator());

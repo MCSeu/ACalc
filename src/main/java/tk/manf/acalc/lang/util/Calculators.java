@@ -8,7 +8,7 @@ import tk.manf.util.AbstractFactory;
 public class Calculators extends AbstractFactory<ExpressionType, Calculator> {
     private Calculators() {
         super("Calculator");
-        modify().register(new PostfixCalculator());
+        unsafe().register(new PostfixCalculator());
     }
 
     public static Calculator resolve(ExpressionType type) {
