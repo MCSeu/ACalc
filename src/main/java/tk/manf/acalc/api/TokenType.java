@@ -5,7 +5,7 @@ public enum TokenType {
     OPERATOR,
     PARENTHESIS_OPEN, PARENTHESIS_CLOSED,
     CURLY_OPEN, CURLY_CLOSED,
-    FUNCTION, 
+    FUNCTION_NAME, 
     COMMENT;
 
     public static TokenType of(char c) {
@@ -31,6 +31,10 @@ public enum TokenType {
             case '[': return CURLY_OPEN;
             case ']': return CURLY_CLOSED;
             case ' ': return COMMENT;
+        }
+        if(Character.isLetter(c)) {
+            // Assume Function
+            return FUNCTION_NAME;
         }
         throw new IllegalArgumentException("Character " + c + " is unknown!");
     }

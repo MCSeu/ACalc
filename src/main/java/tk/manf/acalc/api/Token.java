@@ -5,6 +5,9 @@ public class Token {
     private final String expr;
 
     public Token(TokenType type, Object expr) {
+        if(type == null) {
+            throw new IllegalArgumentException("Type may not be null");
+        }
         this.type = type;
         this.expr = expr.toString();
     }

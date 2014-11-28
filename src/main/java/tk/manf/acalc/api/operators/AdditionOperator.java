@@ -12,6 +12,6 @@ public class AdditionOperator extends AbstractOperator {
 
     @Override
     public int getPrecedence() {
-        return 4;
+        return 2;
     }
 }

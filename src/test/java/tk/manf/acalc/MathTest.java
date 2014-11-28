@@ -5,7 +5,6 @@ import java.util.Map;
 import org.junit.Before;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import tk.manf.acalc.rpn.RPN;
 
 /**
  * Test to test basic expressions
@@ -43,16 +42,23 @@ public class MathTest {
         
         // Brackets and misc operators
         assertCalculation("(5+5) * 4", (5 + 5) * 4);
+        
+        // Preserve precedence
+        assertCalculation("(5+5) * 4 + 4", (5+5) * 4 + 4);
     }
 
+    public void toDo() {
+        // Parenthesis without content
+        // assertError("() 4 + 4"); 
+        // assertError("* * 4"); // TODO: Throw human readable error
+    }
+    
     @Test
     public void test() {
         final ACalc prepocessor = new ACalc();
-        final RPN calculator = new RPN();
         for (Map.Entry<String, Double> e : expressions.entrySet()) {
             final String expression = prepocessor.parse(e.getKey());
-            System.out.println(" !" + expression);
-            assertEquals(e.getValue(), calculator.solve(expression), 0.0);
+            assertEquals(e.getValue(), RPNCalculator.solve(expression), 0.0);
         }
     }
 

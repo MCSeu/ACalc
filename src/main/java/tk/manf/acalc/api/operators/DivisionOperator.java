@@ -12,6 +12,6 @@ public class DivisionOperator extends AbstractOperator {
 
     @Override
     public int getPrecedence() {
-        return 4;
+        return 3;
     }
 }

@@ -2,42 +2,48 @@ package tk.manf.acalc;
 
 import tk.manf.acalc.api.Token;
 import tk.manf.acalc.api.TokenType;
-import java.util.LinkedList;
 import java.util.NoSuchElementException;
-import java.util.Queue;
 import tk.manf.acalc.api.Operator;
-import tk.manf.acalc.rpn.RPN;
+import tk.manf.acalc.api.readers.TokenReader;
+import tk.manf.acalc.collection.Stack;
 
 public class ACalc {
     private final StringBuilder output;
-    private final Queue<Token> stack;
-
+    private final Stack stack;
+    
     public ACalc() {
         this.output = new StringBuilder();
-        this.stack = new LinkedList<>();
+        this.stack = new Stack();
     }
 
     public static void main(String[] args) {
-        final String expr = "(5+5) * 4";
-        final String rpn = new ACalc().parse(new StringBuilder(expr));
+        final String expr = "(5+5) * 4 + 4";
+        
+        final String rpn = new ACalc().parse(expr);
+        System.out.println("Parsing: " + expr);
         System.out.println("Parsed: '" + rpn + "'");
-        System.out.println("Solved: '" + new RPN().solve(rpn) + "'");
+        System.out.println("Solved: '" + new RPNCalculator().solve(rpn) + "'");
+        
+        System.out.println("Reading " + expr);
+        final TokenReader r = new TokenReader(expr);
+        while(r.hasNext()) {
+            final Token token = r.next();
+            if(token.getType() == TokenType.COMMENT) {
+                continue;
+            }
+            System.out.print(token.getExpression() + " ");
+        }
+        System.out.println();
     }
 
     public String parse(String expr) {
-        return parse(new StringBuilder(expr));
-    }
-    
-    private String parse(StringBuilder expr) {
         // clear stuff
         stack.clear();
         output.delete(0, output.length());
         
-        Token token;
-
-        // TODO: create token Parser
-        while (expr.length() > 0) {
-            token = readToken(expr);
+        final TokenReader r = new TokenReader(expr);
+        while (r.hasNext()) {
+            final Token token = r.next();
             switch (token.getType()) {
                 case NUMBER:
                     append(token);
@@ -84,7 +90,7 @@ public class ACalc {
     }
 
     private void handleOperator(Token a) {
-        final Token b = stack.peek();
+        final Token b = stack.top();
         if (b != null && b.getType() == TokenType.OPERATOR) {
             final Operator o1 = a.asOperator();
             final Operator o2 = b.asOperator();
@@ -101,7 +107,7 @@ public class ACalc {
             // 1 0 1 | 1 => C
             // 1 1 0 | 1 => A and B
             // 1 1 1 | 1 => C
-            
+
             if (o1.getPrecedence() < o2.getPrecedence() || (o1.isLeftAssociative() && o1.getPrecedence() == o2.getPrecedence())) {
                 // Append top of stack
                 append(b);
@@ -113,26 +119,5 @@ public class ACalc {
 
     private void append(Token t) {
         output.append(t.getExpression()).append(" ");
-    }
-
-    private Token readToken(StringBuilder txt) {
-        StringBuilder sb = new StringBuilder();
-        TokenType type = null;
-        char c = ' ';
-        for (int i = 0; i < txt.length(); i++) {
-            c = txt.charAt(i);
-            if (type == null) {
-                type = TokenType.of(c);
-            } else if (type != TokenType.of(c)) {
-                // Delete already parsed token from InputStream
-                txt.delete(0, i);
-                // Return parsed Token
-                return new Token(type, sb.toString());
-            }
-            sb.append(c);
-        }
-        // we could not determin characters type
-        txt.deleteCharAt(0);
-        return new Token(type, c + "");
     }
 }
