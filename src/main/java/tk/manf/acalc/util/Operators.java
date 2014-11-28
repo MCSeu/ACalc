@@ -1,7 +1,8 @@
-package tk.manf.acalc.api;
+package tk.manf.acalc.util;
 
 import java.util.HashMap;
 import java.util.Map;
+import tk.manf.acalc.api.Operator;
 import tk.manf.acalc.api.operators.AdditionOperator;
 import tk.manf.acalc.api.operators.DivisionOperator;
 import tk.manf.acalc.api.operators.MultiplicationOperator;

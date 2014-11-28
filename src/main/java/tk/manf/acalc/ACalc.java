@@ -3,6 +3,7 @@ package tk.manf.acalc;
 import tk.manf.acalc.api.Token;
 import tk.manf.acalc.api.TokenType;
 import java.util.NoSuchElementException;
+import tk.manf.acalc.api.Expression;
 import tk.manf.acalc.api.Operator;
 import tk.manf.acalc.api.readers.TokenReader;
 import tk.manf.acalc.collection.Stack;
@@ -22,18 +23,17 @@ public class ACalc {
         final String rpn = new ACalc().parse(expr);
         System.out.println("Parsing: " + expr);
         System.out.println("Parsed: '" + rpn + "'");
-        System.out.println("Solved: '" + new RPNCalculator().solve(rpn) + "'");
+        System.out.println("Solved: '" + RPNCalculator.solve(rpn) + "'");
         
         System.out.println("Reading " + expr);
-        final TokenReader r = new TokenReader(expr);
-        while(r.hasNext()) {
-            final Token token = r.next();
+        final Expression expression = new Expression(expr);
+        for(Token token: expression) {
             if(token.getType() == TokenType.COMMENT) {
-                continue;
+                continue; 
             }
             System.out.print(token.getExpression() + " ");
         }
-        System.out.println();
+        System.out.println("\n");
     }
 
     public String parse(String expr) {

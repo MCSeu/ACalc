@@ -1,9 +1,10 @@
 package tk.manf.acalc.api.readers;
 
+import java.util.Iterator;
 import tk.manf.acalc.api.Token;
 import tk.manf.acalc.api.TokenType;
 
-public class TokenReader {
+public class TokenReader implements Iterator<Token> {
     private final String expression;
     private int index;
 
@@ -12,10 +13,12 @@ public class TokenReader {
         this.index = 0;
     }
     
+    @Override
     public boolean hasNext() {
         return expression.length() > index;
     }
     
+    @Override
     public Token next() {
         TokenType type = null;
         char c;
